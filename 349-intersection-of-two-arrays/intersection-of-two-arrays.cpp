@@ -2,14 +2,31 @@ class Solution {
 public:
     vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
         sort(begin(nums1),end(nums1));
-        unordered_set<int> st;
-        for(int &num : nums2)
+        sort(begin(nums2),end(nums2));
+        int i=0,j=0;
+        int m=nums1.size(),n=nums2.size();
+        vector<int> result;
+        while(i<m && j<n)
         {
-            if (binary_search(begin(nums1),end(nums1),num))
-            st.insert(num);
+            if(nums1[i]==nums2[j])
+            {
+                result.push_back(nums1[i]);
+                while(i<m-1 && nums1[i]==nums1[i+1])
+                {
+                    i++;
+                }
+                while(j<n-1 && nums2[j]==nums2[j+1])
+                {
+                    j++;
+                }
+                i++;
+                j++;
+            }
+            else if(nums1[i]<nums2[j])
+            i++;
+            else
+            j++;
         }
-        vector<int> result (begin(st),end(st));
         return result;
-        
     }
 };
